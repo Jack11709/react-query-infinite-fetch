@@ -8,12 +8,12 @@ export default function useIntersectionObserver({
   rootMargin = '10px',
   enabled = true,
 }) {
+  const { current } = target
   React.useEffect(() => {
-
-    if (!enabled) {
+    if (!enabled || !current) {
       return
     }
-
+    console.log('fires')
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => entry.isIntersecting && onIntersect())
@@ -36,6 +36,7 @@ export default function useIntersectionObserver({
     return () => {
       observer.unobserve(el)
     }
-  }, [target.current, enabled])
+
+  }, [current, enabled, onIntersect, root, rootMargin, target, threshold])
 }
 

@@ -1,9 +1,10 @@
 import { useInfiniteQuery } from 'react-query'
 
-const baseUrl = 'https://ga-pokemon.herokuapp.com/api'
+const baseUrl = 'https://ga-pokemon.herokuapp.com/api/pokemon?page='
 
 function getPokemon(page = 1) {
-  return fetch(`${baseUrl}/pokemon?page=${page}`).then(res => res.json())
+  console.log('this is fetching')
+  return fetch(`${baseUrl}${page}`).then(res => res.json())
 }
 
 export default function usePokemon() {
