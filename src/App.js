@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable no-unused-vars */
+import React from 'react'
+import useIntersectionObserver from './hooks/useIntersectionObserver'
+import usePokemonInifinite from './hooks/usePokemon'
 
 function App() {
+  const { pokemon, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = usePokemonInifinite()
+  const target = React.useRef()
+
+  useIntersectionObserver({
+    target,
+    onIntersect: fetchNextPage,
+    enabled: !!pokemon && hasNextPage,
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {isLoading && <p>...loading</p>}
+      <div>
+        {pokemon && pokemon.map(poke => <h1 key={poke._id}>{poke.name}</h1>)}
+      </div>
+      <div ref={target}/>
+      {isFetchingNextPage && <p>...loading more</p>}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
