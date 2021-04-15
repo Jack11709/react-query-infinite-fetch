@@ -6,11 +6,17 @@ function getPokemon(page = 1) {
   return fetch(`${baseUrl}/pokemon?page=${page}`).then(res => res.json())
 }
 
-export default function usePokemonInfinite() {
+export default function usePokemon() {
   const { data, ...rest } = useInfiniteQuery('pokemon', ({ pageParam = 1 }) => getPokemon(pageParam), {
     getNextPageParam: res => {
       if (res.next) {
         return res.page + 1
+      }
+      return false
+    },
+    getPreviousPageParam: res => {
+      if (res.prev) {
+        return res.page - 1
       }
       return false
     },

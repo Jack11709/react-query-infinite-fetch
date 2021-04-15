@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import useIntersectionObserver from './hooks/useIntersectionObserver'
-import usePokemonInifinite from './hooks/usePokemon'
+import usePokemon from './hooks/usePokemon'
 
 function App() {
-  const { pokemon, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = usePokemonInifinite()
+  const { pokemon, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = usePokemon()
   const target = React.useRef()
 
   useIntersectionObserver({
@@ -21,6 +21,7 @@ function App() {
       </div>
       <div ref={target}/>
       {isFetchingNextPage && <p>...loading more</p>}
+      {!hasNextPage && !isLoading && <p>You have got them all!</p>}
     </div>
   )
 }
