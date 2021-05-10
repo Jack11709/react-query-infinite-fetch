@@ -13,7 +13,6 @@ export default function useIntersectionObserver({
     if (!enabled || !current) {
       return
     }
-    console.log('fires')
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => entry.isIntersecting && onIntersect())
