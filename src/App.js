@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react'
 import useIntersectionObserver from './hooks/useIntersectionObserver'
 import usePokemon from './hooks/usePokemon'
